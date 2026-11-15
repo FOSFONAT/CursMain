@@ -1,0 +1,32 @@
+@MyKeep.Api_HostAddress = http://localhost:5062
+@token = replace-with-access-token
+
+### Health
+GET {{MyKeep.Api_HostAddress}}/api/health
+
+### Register
+POST {{MyKeep.Api_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Demo User",
+  "email": "demo@example.com",
+  "password": "replace-with-strong-password"
+}
+
+### Login
+POST {{MyKeep.Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "demo@example.com",
+  "password": "replace-with-strong-password"
+}
+
+### Current user
+GET {{MyKeep.Api_HostAddress}}/api/auth/me
+Authorization: Bearer {{token}}
+
+### Logout
+POST {{MyKeep.Api_HostAddress}}/api/auth/logout
+Authorization: Bearer {{token}}
