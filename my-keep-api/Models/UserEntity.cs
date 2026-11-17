@@ -7,4 +7,5 @@ public sealed class UserEntity
     public required string Email { get; set; }
     public required string PasswordHash { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
+    public List<NoteEntity> Notes { get; set; } = [];
 }

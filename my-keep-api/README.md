@@ -1,6 +1,6 @@
 # My Keep API
 
-ASP.NET Core 10 Web API for account registration and login. It uses SQL Server via EF Core and JWT bearer authentication.
+ASP.NET Core 10 Web API for account authentication and notes. It uses SQL Server via EF Core and JWT bearer authentication.
 
 ## Requirements
 
@@ -17,7 +17,7 @@ dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=localhost,
 dotnet user-secrets set "Jwt:SigningKey" "REPLACE_WITH_AT_LEAST_32_RANDOM_UTF8_BYTES"
 ```
 
-Migrations create the `MyKeepDb` database and its `Users` table when the API starts.
+Migrations create the `MyKeepDb` database and its tables when the API starts.
 
 ## Run
 
@@ -36,7 +36,14 @@ The API listens at `http://localhost:5062`. Development OpenAPI JSON is availabl
 | `POST` | `/api/auth/login` | No | Sign in; returns `{ user, accessToken }` |
 | `GET` | `/api/auth/me` | Bearer | Get the authenticated user |
 | `POST` | `/api/auth/logout` | Bearer | End the client session |
+| `GET` | `/api/notes` | Bearer | List the current user's notes; supports `search` and `favorite` query parameters |
+| `GET` | `/api/notes/{id}` | Bearer | Get one of the current user's notes |
+| `POST` | `/api/notes` | Bearer | Create a note |
+| `PUT` | `/api/notes/{id}` | Bearer | Update a note |
+| `DELETE` | `/api/notes/{id}` | Bearer | Delete a note |
 
 Send the access token in `Authorization: Bearer <accessToken>`. Logout is stateless: the client must discard its access token; the token expires after 60 minutes. Passwords are stored as ASP.NET Identity password hashes, never as plain text.
+
+Note fields and color values match the frontend model (`title`, `content`, `color`, `favorite`, `createdAt`, `updatedAt`, `expiresAt`). Set `expiresAt` to `null` for a permanent note or to a future ISO 8601 date/time for a temporary one. Expired notes are omitted from reads and removed by a background service at up to 15-second intervals. The API rejects expiration dates that are not in the future.
 
 Example requests are in `MyKeep.Api.http`.

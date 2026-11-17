@@ -1,5 +1,6 @@
 @MyKeep.Api_HostAddress = http://localhost:5062
 @token = replace-with-access-token
+@noteId = replace-with-note-id
 
 ### Health
 GET {{MyKeep.Api_HostAddress}}/api/health
@@ -29,4 +30,40 @@ Authorization: Bearer {{token}}
 
 ### Logout
 POST {{MyKeep.Api_HostAddress}}/api/auth/logout
+Authorization: Bearer {{token}}
+
+### List notes
+GET {{MyKeep.Api_HostAddress}}/api/notes
+Authorization: Bearer {{token}}
+
+### Create a note
+POST {{MyKeep.Api_HostAddress}}/api/notes
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "План на тиждень",
+  "content": "Записати перші нотатки.",
+  "color": "lilac",
+  "favorite": true
+}
+
+### Get a note
+GET {{MyKeep.Api_HostAddress}}/api/notes/{{noteId}}
+Authorization: Bearer {{token}}
+
+### Update a note
+PUT {{MyKeep.Api_HostAddress}}/api/notes/{{noteId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Оновлений заголовок",
+  "content": "Оновлений текст.",
+  "color": "blue",
+  "favorite": false
+}
+
+### Delete a note
+DELETE {{MyKeep.Api_HostAddress}}/api/notes/{{noteId}}
 Authorization: Bearer {{token}}

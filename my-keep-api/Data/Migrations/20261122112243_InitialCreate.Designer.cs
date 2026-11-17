@@ -12,7 +12,7 @@ using MyKeep.Api.Data;
 namespace MyKeep.Api.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20261125153210_InitialCreate")]
+    [Migration("20261122112243_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,6 +24,45 @@ namespace MyKeep.Api.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("MyKeep.Api.Models.NoteEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("Favorite")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId", "UpdatedAt");
+
+                    b.ToTable("Notes", (string)null);
+                });
 
             modelBuilder.Entity("MyKeep.Api.Models.UserEntity", b =>
                 {
@@ -55,6 +94,22 @@ namespace MyKeep.Api.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("MyKeep.Api.Models.NoteEntity", b =>
+                {
+                    b.HasOne("MyKeep.Api.Models.UserEntity", "User")
+                        .WithMany("Notes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MyKeep.Api.Models.UserEntity", b =>
+                {
+                    b.Navigation("Notes");
                 });
 #pragma warning restore 612, 618
         }
