@@ -25,7 +25,7 @@ Migrations create the `MyKeepDb` database and its tables when the API starts.
 dotnet run --launch-profile http
 ```
 
-The API listens at `http://localhost:5062`. Development OpenAPI JSON is available at `/openapi/v1.json`.
+The API listens at `http://localhost:5062`. Development OpenAPI JSON is available at `/openapi/v1.json`. The CORS policy allows the frontend at `http://localhost:3000`; set `Cors__AllowedOrigins__0` to use a different frontend origin.
 
 ## Endpoints
 
