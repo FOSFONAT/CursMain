@@ -3,8 +3,8 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Вхід — My Keep",
-  description: "Увійдіть або створіть акаунт My Keep.",
+  title: "My Keep — Нотатки",
+  description: "Особистий простір для ваших думок і планів.",
 };
 
 export default function RootLayout({

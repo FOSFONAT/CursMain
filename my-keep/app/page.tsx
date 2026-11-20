@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import NotesApp from "@/app/components/notes-app";
 
 export default function Home() {
-  redirect("/login");
+  return <NotesApp />;
 }

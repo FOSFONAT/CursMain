@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { type FormEvent, useState } from "react";
-import { authService, type User } from "@/app/lib/auth-service";
+import { authService, type User } from "@/app/lib/note-services";
 
 type AuthMode = "login" | "register";
 
@@ -101,10 +101,10 @@ export default function AuthPage({ mode }: { mode: AuthMode }) {
                 успішно.
               </p>
               <p className="auth-footnote">
-                Сторінка нотаток буде перенесена окремо.
+                Ваші нотатки вже чекають на вас.
               </p>
-              <Link className="primary-button auth-submit auth-link-button" href="/login">
-                До сторінки входу
+              <Link className="primary-button auth-submit auth-link-button" href="/">
+                До моїх нотаток
               </Link>
             </div>
           ) : (

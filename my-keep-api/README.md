@@ -9,7 +9,7 @@ ASP.NET Core 10 Web API for account authentication and notes. It uses SQL Server
 
 ## Configure local secrets
 
-Run these commands from `D:\WebCur\MainCurs\my-keep-api`. Keep the SQL password and signing key out of source control:
+The API reads `appsettings.Development.json` automatically when running in Development. This local file is ignored by Git so database credentials and the JWT signing key are not committed. Alternatively, use User Secrets by running these commands from `D:\WebCur\MainCurs\my-keep-api`:
 
 ```powershell
 dotnet user-secrets init
